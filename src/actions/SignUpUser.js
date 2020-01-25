@@ -12,7 +12,16 @@ export default function SignUpUser(user){
         }
         fetch('http://localhost:3000/users',params)
         .then(resp => resp.json())
-        .then(json => dispatch({type:'LOGIN_USER',user:json.user}))
+        .then(json => {
+            if(json.errors){
+                json.errors.forEach(e => {
+                    console.log(e)
+                })
+            }else{
+                            dispatch({type:'LOGIN_USER',user:json.user})
+
+            }
+        })
     }
 
   
